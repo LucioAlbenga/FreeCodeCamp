@@ -1,0 +1,466 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Getting Started with Git on Linux</title>
+    <meta name="description" content="Technical Documentation Page project for freeCodeCamp responsive web design certification.">
+    <meta name="author" content="Lucio Albenga">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div id="container">
+        <nav id="navbar">
+            <header>Getting Started with Git on Linux</header>
+            <ul>
+                <li><a href="#Introduction_and_Setup" rel="internal" class="nav-link">Introduction and Setup</a></li>
+                <li><a href="#Start_a_Repository" rel="internal" class="nav-link">Start a Repository</a></li>
+                <li><a href="#.gitignore" rel="internal" class="nav-link">.gitignore</a></li>
+                <li><a href="#Basic_Commands" rel="internal" class="nav-link">Basic Commands</a></li>
+                <li><a href="#Branches" rel="internal" class="nav-link">Branches</a></li>
+                <li><a href="#Working_With_Remote_Repositories" rel="internal" class="nav-link">Working With Remote Repositories</a></li>
+                <li><a href="#A_Git_Workflow" rel="internal" class="nav-link">A Git Workflow</a></li>
+                <li class="last"><a href="#Good_Practices" rel="internal" class="nav-link">Good Practices</a></li>
+            </ul>
+        </nav>
+        <main id="main-doc" role="main">
+            <section id="Introduction_and_Setup" class="main-section">
+                <header>Introduction and Setup</header>
+                <p>This is a basic Git Guide. I made it for me during my learning process and to have a reference but I hope that someone else could find it useful too. </p>
+                <p><em>Do not hesitate to send your comments, fixes, etc. to me to make it better for all of us.</em></p>
+                <p><a href="https://git-scm.com/downloads">Download Git</a> from the official site. You can find all the instructions to download and install git for your system there.</p>
+                <p>Once you have installed Git the first thing to do is to set up some basics to start working with it.</p>
+                <p>First of all you should setup your username and e-mail. Open a terminal and type the following commands:</p>
+                <code class="code-block">
+                    git config --global user.name Your Username<br>
+                    git config --global user.email your@email.com
+                </code>
+                <p>For instance:</p>
+                <code class="code-block">
+                    git config --global user.name Lucio Albenga<br>
+                    git config --global user.email lucio@albenga.es
+                </code>
+                <p>Then I encourage you to add the following setup in order to avoid problems with new line codes among different systems:</p>
+
+                <code class="code-block">
+                    git config --global core.autocrlf true<br>
+                    git config --global core.autocrlf input
+                </code>
+
+                <p>Setup your default editor for git. You use this mainly for writing commit messages. I use Vim as my default editor:</p>
+                <code class="code-block">git config --global core.editor "vim"</code>
+
+                <p> Finally you can activate syntax color in order to make it easier to see things on terminal:</p>
+                <code class="code-block">git config --global color.ui auto</code>
+            </section>
+
+            <section id="Start_a_Repository" class="main-section">
+                <header>Start a Repository</header>
+                <h2>Local Repositories</h2>
+                <p>To start a Git repo from 0, this means without an already existing code base, on our computer we have two options:</p>
+                <ol>
+                    <li>
+                        <p>If we do not have already created the project folder we use the command:</p>
+                        <code class="code-block">git init project_name_folder</code>  
+                        <p>This command creates the project folder and initializes a Git repo in it.</p>
+                    </li>
+                    <li>
+                        <p>If we already have created the project folder, we go inside it and then use the following command to initialize the Git repo in it:</p>
+                        <code class="code-block">git init</code>
+                    </li>
+                </ol>
+                <h2>Remote Repositories</h2>
+                <p>To start a <b>bare</b> repo, this means a remote repository, we create the folder and we initialize it with the <em>--bare</em> modifier.</p>
+                <code class="code-block">
+                    mkdir repository_name.git<br>
+                    git init --bare repository_name.git
+                </code>
+                <p>If we already have a local repository and we want to change it to remote (<b>bare</b>) we can clone it or modify it by hand.</p>
+                <p>To clone it we use the following command:</p>
+                <code class="code-block">git clone --bare /path/to/repo</code>
+                <p>To modify it by hand we use the following commands:</p>
+                <code class="code-block">
+                    $ cd repository_folder<br>
+                    $ mv .git .. && rm -fr *<br>
+                    $ mv ../.git .<br>
+                    $ mv .git/* .<br>
+                    $ rmdir .git<br>
+                    $ git config --bool core.bare true<br>
+                    $ cd ..; mv repository_folder repositoy_folder.git
+                </code>
+            </section>
+
+            <section id=".gitignore" class="main-section">
+                <header>.gitignore</header>
+                <p>Once we have created our repository, if we have a number of files that we already know we do not want to put on version control, for instance: Java *.class files. It is convenient that we use
+                the <b>.gitignore</b> feature.</p>
+               <p>To use this feature we should create a file called <b>.gitignore</b> inside out project's root folder (notice that we can have other <b>.gitignore</b> files on our project subfolders for specific things) and put it on version control. We do it with the following commands:</p>
+                <code class="code-block">touch .gitignore<br>
+                    git add .gitignore<br>
+                    git commit
+                </code>
+                <p>Once we have our <b>.gitignore</b> file we can edit it by putting a pattern per line that matches the file type that we do not want to put on version control. Some examples:</p>
+                <code class="code-block">
+                    *.class<br>
+                    *.log<br>
+                    .sass-cache<br>
+                    compiled/<br>
+                    # comment<br>
+                    !app.log
+                </code>
+                <p>If we want to know that files and folders are excluded form our repository without opening the <b>.gitignore</b> file, we can use the following command:</p>
+                <code>git ls-files --others --ignored --exclude-standard</code>
+            </section>
+
+            <section id="Basic_Commands" class="main-section">
+                <header>Basic Commands</header>
+                <h2>Status</h2>
+                <p>The <code>git status</code> command in its most basic form tells us the current status of our project directory with respect to the repository. 
+                    Files added, deleted, pending <em>commit</em>, etc. </p>
+
+                <h2>Add</h2>
+                <p>The command "git add" helps us to add changes to our repository.</p>
+                <code class="code-block">
+                    git add -A<br>
+                    git add --all<br>
+                    git add
+                </code>
+                <p>These three commands do the same. They add all changes to the stage of our repository. That is, all the files that must be added for commit, those that must be deleted, 
+                    renamed (or moved), etc. This command is the default command, if we only put `git add` it does this same thing but it is also true that it is a very delicate command 
+                    and it could be that it will do something we do not want.<b>If we want to undo the `git add` we use the command `git reset` and it leaves us everything as we had it before the * add *.</b></p>
+                <p>A more useful form of this command is:</p>
+                <code class="code-block">
+                    git add -A subfolder_name/<br>
+                    git add file_name
+                </code>
+                <p>This command do the same thing but only for the specified subfolder or file instead of the entire project. If we want to operate from the current folder we can use only <code>git add .</code></p>
+                <p>If we only want to add new and modified files we use the following command:</p>
+                <code class="code-block">git add --no-all</code>
+                <p>If we want to add only the modified and removed files we use one of the following:</p>
+                <code class="code-block">
+                    git -u<br>
+                    git --update<br>
+                    git -u subfolder_name<br>
+                </code>
+
+                <h2>Commit</h2>
+                <p>The <b>commit</b> command send to Git the changes we have made in the source code of our project. The most basic way that I advise against doing a <b>commit</b> is:</p>
+                <code class="code-block">git commit -m "Commit Message"</code>
+                <p>Personally I advise against it because unless it is something very, very basic our commit message will always be wider than a single line therefore the way I recommend is:</p>
+                <code class="code-block">git commit</code>
+                <p>This will open the editor that we have configured as the deault and then we type our commit message.</p>
+
+                <h3>Structure of a Commit Message</h3>
+                <p>There is a lot of articles, reccomendations, etc. on how a commit message should be. If the project we are working on does not have predefined guidelines, 
+                    we can use the following guidelines that will make the history of our project consistent and coherent both for us and for those who will see it in the future.</p>
+
+                <code class="code-block">
+                    # Subject (50 characters).<br>
+                    This is our commit subject.<br><br>
+
+                    #Body of the commit with more details.<br>
+                    There is a blank line between the subject and the body.<br>
+                    In the body we explain the problem that resolves the<br>
+                    commit and the why of the changes (the how of the<br>
+                    changes is already in the source code).
+                </code>
+                <p>The 7 rules of a good commit message by <a href="https://chris.beams.io/posts/git-commit/" target="_blank">Chris Beams</a> are:</p>
+                <ol>
+                    <li>Separate subject from body with a blank line.</li>
+                    <li>Limit the subject line to 50 characters.</li>
+                    <li>Capitalize the subject line.</li>
+                    <li>Do not end the subject line with a period.</li>
+                    <li>Use the imperative mood in the subject line.</li>
+                    <li>Wrap the body at 72 characters.</li>
+                    <li>Use the body to explain what and why vs. how.</li>
+                </ol>
+                <p>If on our last <b>commit</b> we realize that our message is not good and we want to modify it we can do it using the following command:</p>
+                <code>git commit --amend</code>
+
+                <h2>Log</h2>
+                <p>The <code>git log</code> command helps us to see the history of the project. The command in its most basic form is <code>git log</code> 
+                    but we will see a few variants that make it much more useful.</p>
+                <p>The first variant is with the <code>--oneline</code> modifier:</p>
+                <code class="code-block">git log --oneline</code>
+                <p>This way we see the history one commit per line (only the commit subject).</p>
+                <p>Another very useful modifier is <code>--stat</code> that shows us the files involved in the <b>commit</b>:</p>
+                <code class="code-block">git log --stat</code>
+                <p>The <code>--patch</code> modifier shows the subsequent changes between the different commits. The <b>diff</b> of the files:</p>
+                <code class="code-block">git log --patch</code>
+                <p>We can link all these modifiers with each other to obtain the information that best suits our needs. For example, a command that
+                    can be useful to obtain information about the structure of our repository is the following:</p>
+                <code class="code-block">git log --graph --all --decorate --oneline</code>
+                <p>Finally if we want to track a file that has been moved or has been renamed we can use the form:</p>
+                <code class="code-block">git log --stat -M --follow -- path_to/file</code>
+
+                <h2>Diff</h2>
+                <p>We use the command <code>git diff</code> to see the differences between the files we have under version control and the editions we 
+                    have made but that we do not have yet put under version control using <code>commit</code>.</p>
+                <p>The most basic way to use this command is:</p>
+                <code class="code-block">git diff</code>
+                <p>To see the changes between what we already have under version control and the staged we use the command</p>
+                <code class="code-block">git diff --staged</code>
+                <p>If we want to see the diff of our last commit we can do it with:</p>
+                <code class="code-block">git diff HEAD</code>
+                <p>We can also use <code>git diff</code> to see the differences between previous versions of the same file, between different branches, etc.</p>
+                <p>Sometimes we have only made a small change in a file and the best modifiers to see this are:</p>
+                <code class="code-block">
+                    git diff --color-words<br>
+                    git diff --word-diff
+                </code>
+                <p>These commands highlight exactly the small change we have made in each line.</p>
+                <p>If all we want to know is what file/s have changed without seeing the code changes we use the command:</p>
+                <code class="code-block">git diff --stat</code>
+
+                <h2>Remove</h2>
+                <p>To remove files from our project we use the command:</p>
+                <code class="code-block">git rm file_name</code>
+                <p>This removes the file from the repository and from the project (physically). If by chance we have deleted the file without using 
+                    <code>git rm</code> we can use the command equally so that the deletion enters stage. But we can also use the <code>git add -u</code> form 
+                    to add deleted files to the stage.</p>
+                <p>If we only want to remove the file from the repository but leave it on the project we use the command:</p>
+                <code class="code-block">git rm --cached file_name</code>
+
+                <h2>Move</h2>
+                <p>The <code>git mv</code> command serves both to move and to rename files and folders. The form of the command is:</p>
+                <code class="code-block">git mv source destination</code>
+                <p><b>Source</b> is the file of folder we want to move or rename and <b>destination</b> is the new location or name of the file or folder.</p>
+                <p>If we have moved or renamed the file without using the <code>git mv</code> command then we can manually adjust it step by step with 
+                    <code>git rm</code> and <code>git add</code> or, as we have already seen with the command <code>git add .</code></p>
+            </section>
+
+            <section id="Branches" class="main-section">
+                <header>Branches</header>
+                <p>Development branches are the cornerstone to work with Git. When we initialize a repository there is only one branch <b>master</b> which is 
+                    the master development line and normally it is also the one with the production code.</p>
+                <p>The common thing is that there are several different branches of development: production code, versions, bugfixes, experimental, etc. 
+                    When we want to try something it is also common that we create a different branch to make our changes and try.</p>
+                <p>Now we are going to see the commands to work with branches.</p>
+                <h2>Branch</h2>
+                <p>To create a new branch we use the command:</p>
+                <code class="code-block">git branch branch_name</code>
+                <p>To remove an existing branch we use the coomand:</p>
+                <code class="code-block">git branch -d branch_name</code>
+                <p>If we use the command <code>git branch</code> it only shows us the local branches and tells us which branch we are in right now. 
+                    If we use it with the <code>-r</code> modifier, it shows only the remote branches.</p>
+                <p>To create a local branch from a remote branch we use the following command (where origin / refactored is the remote branch): </p>
+                <code class="code-block">git checkout --track -b refactored origin/refactored</code>
+                <p>To see the branches that are already merged, we use the command:</p>
+                <code class="code-block">git branch --merged</code>
+                <p>To see only those that are not merged we use the command:</p>
+                <code class="code-block">git branch --no-merged</code>
+
+                <h2>Checkout</h2>
+                <p>Checkout allows us to do several things when working with branches. The first one is to switch between the different branches using the command:</p>
+                <code class="code-block">git checkout branch_name</code>
+                <p>When we switch between branches our file system changes to the point of view of that branch, therefore files can appear and disappear or appear in other places.</p>
+
+                <p>Another functionality of <b>checkout</b> is to see how the code was in a specific commit. To do that we used the command:</p>
+                <code class="code-block">
+                    git checkout commit_reference<br>
+                </code>
+                <p>For example:</p>
+                <code class="code-block">git checkout 8b7d6658e127baa8f084f7d110824b0cf0cdaab5</code>
+                <p>Then we get back to the normal state with <code>git checkout master</code></p>
+                <p>Another use for <code>git checkout</code> is to remove changes on a file. To do this we use the command:</p>
+                <code class="code-block">git checkout file_name</code>
+
+                <p>Finally <b>checkout</b> allows us to create a new branch and change to it in a single command:</p>
+                <code class="code-block">git checkout -b branch_name</code>
+
+                <h2>Merge</h2>
+                <p>Merge merges changes from one branch into another. For example if we have a branch of bugfixes and once it is resolved we want to merge it with our master branch.</p>
+                <p>To merge one branch with another the first thing we do is change to the branch that will receive the merge (the destination branch).</p>
+                <code class="code-block">git checkout master</code>
+                <p>Then we execute the merge command:</p>
+                <code class="code-block">git merge name_of_the_branch_to_merge_with_this_one</code>
+                <p>For example: <code>git merge bugfixes</code>
+                <p>Personally I prefer to do the merge with the <code>--no-ff</code> modifier because it is merged with the whole commit history 
+                    of the branch. In this case, the complete command sequence would be:</p>
+                <code class="code-block">
+                    git checkout master<br>
+                    git merge --no-ff name_of_the_brand_to_merge_with_this_one
+                </code>
+                <p>When we make a merge sometimes we find conflicts. When there are conflicts we must open the file in conflict 
+                    (we can see it with <code>git status</code> the file that is not in commit). The file will have the following form:</p>
+                <code class="code-block">
+                    <<<<<<<<< HEAD<br>
+                        some code<br>
+                    ======================<br>
+                        some code<br>
+                    >>>>>>>>>>>>> name_of_branch_we_will_want_to_merge
+                </code>
+                <p>The code above the equal symbols is that of the branch that should receive the new code and the one that is below is 
+                    the code of the branch that we want to integrate in it.</p>
+                <p>To resolve the conflict we eliminate the conflict markers and leave the final code we want. Then we add it to the stage, 
+                    execute the commit and we have it.</p>
+                <p>If at the time of conflict resolution we do not have time or do not want to get into it at that moment we can 
+                    abort the <b>merge</b> using the command:</p>
+                <code class="code-block">git merge --abort</code>
+                <p>If we only want the commits of the branch instead of merging it we use the command:</p>
+                <code class="code-block">git merge --squash name_of_branch_to_merge_with_this_one</code>
+            </section>
+            <section id="Working_With_Remote_Repositories" class="main-section">
+                <header>Working With Remote Repositories</header>
+                <p>Now we are going to see commands we need to work with a remote repository.</p>
+                <h2>Get a Remote Repository: Clone</h2>
+                <p>To get a repository that is on another machine we need to use the <code>clone</code> command:</p>
+                <code class="code-block">
+                    git clone http://url/repository_name.git /local/path/on/your/computer<br>
+                    git clone lfa@zeus:/home/lfa/Projects/repos/test.git ./
+                </code>
+
+                <p>Once we have cloned the repository we can see the data from the remote repository with the command:</p>
+                <code class="code-block">git remote -v</code>
+                <p><code>-v</code> means verbose</p>
+
+                <h2>Send Changes to a Remote Repository: Push</h2>
+                <p>To send our changes to a remote repository we use the command <code>push</code></p>
+                <p>If it is a new branch or it is the first push that is made to the repository, we use the command:</p>
+                <code class="code-block">git push --all</code>
+                <p>Otherwise, we only use the form:</p>
+                <code class="code-block">git push</code>
+                <p>We can also use the following form (where master is the branch you want to send):</p>
+                <code class="code-block">git push origin master</code>
+
+                <h2>Get Changes From a Remote Repository: Pull and Fetch</h2>
+                <p>To get changes from a remote repository you can use the <code>pull</code> and <code>fetch</code> commands. 
+                    Personally I recommend using <code>git fetch</code> because <code>git pull</code> does a fetch and a merge
+                    when ideally we do it by hand.</p>
+                <p>These two commands on its most basic form are as follows:</p>
+                <code class="code-block">
+                    git pull<br>
+                    git fetch<br>
+                </code>
+                <p>We can also use the following (where master is the branch you want to get):</p>
+                <code class="code-block">git pull origin master</code>
+                <p>As I alreasy said a better way to get changes from a remote repository is using <code>git fetch</code> and
+                then make the merge by hand. You should use the following commands sequence:</p>
+                <code class="code-block">
+                    git fetch<br>
+                    git diff master origin/master<br>
+                    git merge origin/master
+                </code>
+            </section>
+
+            <section id="A_Git_Workflow" class="main-section">
+                <header>A Git Workflow</header>
+                <p>Next we will see an example of workflow with Git that I found on: <a href="http://nvie.com/posts/a-successful-git-branching-model/">nvie.com</a>.
+                    This workflow is the one I have adopted since then.</p>
+                <p><b>In this model we have two main branches: master and develop.</b> The master branch has the versions passed to production 
+                    1.0, 2.0, etc. while the develop is where the current development is made. Both branches are maintained infinitely.</p>
+                <p>Apart there are three other types of branches:</p> 
+                <ol>
+                    <li>Features</li>
+                    <li>Release</li>
+                    <li>Hotfix</li>
+                </ol>
+                <h2>Features</h2>
+                <p>Feature branches are used to develop a new functionality to the application. These branches come out of Develop and it is normal that they have 
+                    the name of the feature they implement that should not be any of these: develop, release-, hotfix-</p>
+                <p><b>These branches exist during the development of the feature and then they are deleted once they are merged into develop</b> 
+                    or it is decided to discard them for whatever reason.</p>
+                <p>To create one of these branches we do the following:</p>
+                <code class="code-block">
+                    git checkout -b myfeature develop<br>
+                    Switched to a new branch "myfeature"
+                </code>
+                <p>Once the feature is ready we merge it into Develop:</p>
+                <code class="code-block">
+                    git checkout develop<br>
+                    Switched to branch 'develop'<br>
+                    git merge --no-ff myfeature<br>
+                    Updating ea1b82a..05e9557<br>
+                    (Summary of changes)<br>
+                    git branch -d myfeature<br>
+                    Deleted branch myfeature (was 05e9557).<br>
+                    git push origin develop
+                </code>
+
+                <h2>Release</h2>
+                <p>When the develop branch has reached the point that it is ready for a release we created a branch of the release: release-1.2</p>
+                <code class="code-block">
+                    git checkout -b release-1.2 develop<br>
+                    Switched to a new branch "release-1.2"<br>
+                    ./bump-version.sh 1.2<br>
+                    Files modified successfully, version bumped to 1.2.<br>
+                    git commit -a -m "Bumped version number to 1.2"<br>
+                    [release-1.2 74d9424] Bumped version number to 1.2<br>
+                    1 files changed, 1 insertions(+), 1 deletions(-)<br>
+                </code>
+                <p><b>Note:</b> bump-version.sh is a script that makes changes to the files to update the version number such as adding an entry in the changelog and things like that.</p>
+                <p>In this branch we only add bug fixes and minor things. <b>It is strictly forbidden to introduce new features</b>.</p>
+                <p>Once the release is ready we have to merge it in the master branch and in the develop branch.</p>
+                <p>We start merging it in master. As we can see when we merge it in master we also add a label with the version of the release.</p>
+                <code class="code-block">git checkout master<br>
+                    Switched to branch 'master'<br>
+                    git merge --no-ff release-1.2<br>
+                    Merge made by recursive.<br>
+                    (Summary of changes)<br>
+                    git tag -a 1.2
+                </code>
+
+                <p>Now we merge it into the develop branch:</p>
+                <code class="code-block">
+                    git checkout develop<br>
+                    Switched to branch 'develop'<br>
+                    git merge --no-ff release-1.2<br>
+                    Merge made by recursive.<br>
+                    (Summary of changes)
+                </code>
+                <p>Finally we remove it:</p>
+                <code class="code-block">git branch -d release-1.2<br>
+                    Deleted branch release-1.2 (was ff452fe).
+                </code>
+
+                <h2>Hotfix</h2>
+                <p>This branch is similar to the release but its goal is to get a version that fixes one or more important bugs and that can not wait for the next planned release.</p>
+                <p>This type of branch is created from <b>master</b> and as we can see it has a minor version number 1.2.1 in this case.</p>
+                <code class="code-block">
+                    git checkout -b hotfix-1.2.1 master<br>
+                    Switched to a new branch "hotfix-1.2.1"<br>
+                    ./bump-version.sh 1.2.1<br>
+                    Files modified successfully, version bumped to 1.2.1.<br>
+                    git commit -a -m "Bumped version number to 1.2.1"<br>
+                    [hotfix-1.2.1 41e61bb] Bumped version number to 1.2.1<br>
+                    1 files changed, 1 insertions(+), 1 deletions(-)
+                </code>
+
+                <p>Once we have fixed the bug(s) we have to merge it again into <b>master</b> and <b>develop</b> like a release.</p>
+                <code class="code-block">
+                    git checkout master<br>
+                    Switched to branch 'master'<br>
+                    git merge --no-ff hotfix-1.2.1<br>
+                    Merge made by recursive.<br>
+                    (Summary of changes)<br>
+                    git tag -a 1.2.1<br>
+                    <br>
+                    git checkout develop<br>
+                    Switched to branch 'develop'<br>
+                    git merge --no-ff hotfix-1.2.1<br>
+                    Merge made by recursive.<br>
+                    (Summary of changes)
+                </code>
+
+                <p>If we have a release branch running instead of merging it into develop we would merge it into that branch since then that branch 
+                    would be merged into develop once it enters production.</p>
+            </section>
+            <section id="Good_Practices" class="main-section">
+                <header>Good Practices</header>
+                <p>Below is a list of good practices when working with Git:</p>
+                <ol>
+                    <li>Before a commit always check with a diff</li>
+                    <li>Before starting to code, every day review the logs and diff that have been put by others</li>
+                    <li>Group the commits. A commit for each logical unit (a fixed bug, a feature, etc.)</li>
+                    <li>Add to the repository the needed files to build the project. External libraries, source code, etc.</li>
+                    <li>Do not add anything that generates the project as a binary once the project is compiled.  For example Java *.class files.</li>
+                    <li>Before sending your changes to the remote repository, make sure they "work" and you do not bother the project.</li>
+                    <li>Before a commit check whenever the merge works by testing the code.</li>
+                    <li>Do not comment code to keep it in the project <em>just in case</em> you delete it and that's it because you can always recover 
+                        it by checking out an earlier version.</li>
+                    <li>Test your code after each commit.</li>
+                </ol>
+            </section>
+        </main>
+    </div>
+    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+</body>
