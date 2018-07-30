@@ -186,7 +186,7 @@ ul {
     line-height: 1.6;
 }
 
-@media (max-width: 700px){ 
+@media (max-width: 700px){
     nav a,
     nav a:hover, 
     nav a:visited {
@@ -212,6 +212,9 @@ ul {
     }
     section #container {
         flex-direction: column;
+    }
+    .separators {
+        display: none;
     }
     
 }
