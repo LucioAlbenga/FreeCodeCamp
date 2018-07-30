@@ -28,26 +28,6 @@ h1 {
 h2 {
     padding: 50px;
 }
-/*
-header {
-    position: fixed;
-    margin-top: 20px;
-    display:grid;
-    grid-template-columns: auto auto;
-    align-items: space-around;
-    justify-items: center;
-}
-
-#logo {
-    font-family: "Roboto", sans-serif;';
-    font-weight: 100;
-    font-size: 1.8em;
-}
-
-#logo span {
-    font-weight: 700;
-}
-*/
 
 footer {
     width: 100%;
