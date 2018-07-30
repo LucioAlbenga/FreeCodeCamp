@@ -3,18 +3,18 @@
 }
 
 body {
-    margin:0;
+    margin:0 auto;
     padding: 0;
-    background-color: #f8f8f8;
-    color: #3c2e27; 
+    background: url('../img/wood-texture.jpg');
+    color: #c3a173; 
     font-family: 'Lora', serif;
+    max-width: 1200px;
 }
 
 header,
 footer {
     font-family: 'Roboto', sans-serif;
     width:100%;
-    background-color: #cfa67c ;
     padding: 20px;
 }
 
@@ -24,11 +24,14 @@ header {
     align-items: center;
     justify-content: space-between;
     position: fixed;
+    background-color: #210801;
     z-index:2;
+    max-width: 1200px;
 }
 
 footer {
-    text-align: right;
+    border-top:1px solid #c3a173;
+    text-align: center;
 }
 
 a.nav-link,
@@ -37,13 +40,13 @@ a:visited.nav-link {
     text-transform: uppercase;
     text-decoration: none;
     padding: 10px;
-    font-size: 0.9em;
-    color: #3c2e27;
+    font-size: 0.8em;
+    color: #c3a173;
     font-weight: 700;
 }
 
 #header-img {
-    max-width: 100%;
+    max-width: 100px;
 }
 
 #nav-bar {
@@ -76,7 +79,7 @@ section {
 }
 
 #video-howto {
-    max-width: 700px;
+    max-width: 1200px;
 }
 
 #video-container {
@@ -113,9 +116,9 @@ height: 100%;
 #form-group input[type="email"],
 #form-group textarea {
     padding: 10px;
-    border: 1px solid #cfa67c;
-    background-color: #f8f8f8;
-    color: #1c1c1c;
+    border: 1px solid #7a5739;
+    background-color: #210801;
+    color: #7a5739;
     min-width: 300px;
 }
 
@@ -130,10 +133,10 @@ button,
     font-weight: 700;
     margin: 0 auto;
     text-align: center;
-    border: 1px solid #cfa67c ;
+    border: 1px solid #7a5739;
     border-radius: 5px;
-    background-color: #cfa67c ;
-    color: #3c2e27 ;
+    color: #7a5739;
+    background-color: #210801;
     padding: 10px 20px 10px 20px;
 }
 
@@ -141,10 +144,6 @@ button {
     margin: 10px;
 }
 
-#features {
-    background-color: #cfa67c;
-    
-}
 
 section #container {
     display: flex;
@@ -164,7 +163,7 @@ section #container {
 
 #option {
     margin: 10px;
-    border: 1px solid #000;
+    border: 1px solid #c3a173;
     border-radius: 3px;
 }
 
@@ -172,7 +171,8 @@ section #container {
 #option .title {
     font-family: 'Robot', sans-serif;
     font-size: 1.5em;
-    background-color: #cfa67c;
+    background-color: #c3a173;
+    color: #210801;
     padding: 15px 0;
     width: 100%;
     text-transform: uppercase;
