@@ -1,0 +1,92 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    background-color: green;
+}
+
+#quote-container {
+    max-width: 600px;
+    background-color: #fff;
+    margin: 25vh auto auto auto;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+#quote-container .quote {
+    font-weight: 400;
+    font-size: 2em;
+    padding: 30px;
+}
+
+#quote-container .author {
+    text-align: right;
+    font-size: 1em;
+    margin-right: 40px;
+}
+
+#buttons {
+    padding: 30px;
+    list-style-type: none;
+    width: 100%;
+}
+
+#buttons li {
+    display: inline;
+}
+
+#buttons li a {
+    text-decoration: none;
+    padding: 10px 20px 10px 20px;
+    background-color: green;
+    color: #fff;
+    border-radius: 5px; 
+    font-weight: 700;
+}
+
+#buttons li.new-quote {
+    margin-left: 15vw;
+}
+
+.share {
+    font-family: 'Font Awesome';
+    font-size: 1em;
+}
+.site-author  {
+    color: #fff;
+    width:100%;
+    text-align: center;
+}
+
+@media (max-height: 823px) {
+    #quote-container {
+        margin: 15vh auto auto auto;
+    }
+}
+
+@media (max-height: 640px) {
+    #quote-container {
+        margin: 5vh auto auto auto;
+    }
+}
+
+@media (max-width: 375px) {
+    #quote-container .quote { 
+        font-size: 1.5em;    
+    }
+}
+
+@media (max-width: 360px) {
+    
+    #buttons li.new-quote {
+        margin-left: 10vw;
+    }
+}
+
+@media (max-width: 320px) {
+    #buttons li.new-quote {
+        margin-left: 2vw;
+    }
+}
