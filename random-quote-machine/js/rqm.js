@@ -46,5 +46,6 @@ function updateColor() {
 $( document ).ready(function() {
     $(".new-quote").click(function(event){
         newQuote();
-      });
+    });
+    newQuote(); // Load a quote on first run
 });
