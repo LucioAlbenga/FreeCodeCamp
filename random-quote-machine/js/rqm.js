@@ -23,9 +23,16 @@ function newQuote() {
  */
 function updateQuote(quote) {
     if (jQuery.type(quote) === "object") {
-        $("#text").html(quote.text);
-        $("#author").html("- " + quote.author);
-        updateColor();
+        $("body").animate(
+            { opacity: 0 },
+            700,
+            function() {
+                $("#text").html(quote.text);
+                $("#author").html("- " + quote.author);
+                updateColor();
+            }
+        );
+        $("body").animate({opacity: "1"}, 1500);
     } else { // Error msg
         $("#text").html(quote);
         $("#author").html("Something went wrong try again later.");
