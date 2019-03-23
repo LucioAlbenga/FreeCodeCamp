@@ -18,11 +18,11 @@ function newQuote() {
 
 /**
  * Update the quote and the background and buttons colors.
- * Quote is an array containing 2 elements: text and author.
+ * Quote is an object containing 2 elements: text and author.
  * @param {*} quote 
  */
 function updateQuote(quote) {
-    if (jQuery.type() === "array") {
+    if (jQuery.type(quote) === "object") {
         $("#text").html(quote.text);
         $("#author").html("- " + quote.author);
         updateColor();
