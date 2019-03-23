@@ -22,6 +22,7 @@ function newQuote() {
  * @param {*} quote 
  */
 function updateQuote(quote) {
+    const twitterURI = "https://twitter.com/intent/tweet?hashtags=quotes&via=LucioAlbenga"
     if (jQuery.type(quote) === "object") {
         $("body").animate(
             { opacity: 0 },
@@ -29,6 +30,7 @@ function updateQuote(quote) {
             function() {
                 $("#text").html(quote.text);
                 $("#author").html("- " + quote.author);
+                $("#tweet-quote").attr("href", twitterURI + "&text= " + encodeURIComponent('"' + quote.text + '" ' + quote.author));
                 updateColor();
             }
         );
