@@ -4,6 +4,9 @@
 
 body {
     font-family: 'Raleway', sans-serif;
+}
+
+.bgcolor {
     background-color: green;
 }
 
