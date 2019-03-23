@@ -38,6 +38,7 @@ body {
 
 #buttons li {
     display: inline;
+    float:left;
 }
 
 #buttons li a {
@@ -49,7 +50,8 @@ body {
 }
 
 #buttons #new-quote {
-    margin-left: 15vw;
+    margin-left: 18vw;
+    float:right;
 }
 
 .share {
@@ -71,24 +73,5 @@ body {
 @media (max-height: 640px) {
     #quote-box {
         margin: 5vh auto auto auto;
-    }
-}
-
-@media (max-width: 375px) {
-    #quote-box #text { 
-        font-size: 1.5em;    
-    }
-}
-
-@media (max-width: 360px) {
-    
-    #buttons #new-quote {
-        margin-left: 10vw;
-    }
-}
-
-@media (max-width: 320px) {
-    #buttons #new-quote {
-        margin-left: 2vw;
     }
 }
